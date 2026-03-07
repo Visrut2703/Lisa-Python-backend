@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, make_response
-import PyPDF2
+import pypdf
 import os
 from flask_cors import CORS
 # import speech_recognition as sr
@@ -17,10 +17,10 @@ CORS(app, supports_credentials=True)
 
 def extract_text_from_pdf(pdf_file):
     print("Here")
-    pdf_reader = PyPDF2.PdfReader(pdf_file)  # Updated to PdfReader
+    pdf_reader = pypdf.PdfReader(pdf_file)
     text = ''
-    for page_num in range(len(pdf_reader.pages)):
-        text += pdf_reader.pages[page_num].extract_text()  # Updated method name
+    for page in pdf_reader.pages:
+        text += page.extract_text()
     return text
 
 
