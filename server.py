@@ -10,10 +10,7 @@ load_dotenv()
 import csv
 
 app = Flask(__name__)
-# Enable CORS - if using credentials, origin cannot be '*'
-# We will allow all origins but without the '*' literal if possible, 
-# or just set it to reflect the request origin.
-CORS(app, supports_credentials=True)
+CORS(app) # Simplest possible CORS setup for testing
 
 def extract_text_from_pdf(pdf_file):
     print("Here")
