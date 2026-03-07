@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import PyPDF2
 import os
 from flask_cors import CORS
@@ -26,6 +26,7 @@ def hello():
 
 @app.route('/extract-text', methods=['POST'])
 def extract_text():
+    print("Here")
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
 
@@ -40,6 +41,7 @@ def extract_text():
 
     try:
         text = extract_text_from_pdf(file)
+        print(text)
         return jsonify({'text': text}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
