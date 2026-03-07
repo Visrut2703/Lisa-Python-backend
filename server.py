@@ -21,11 +21,11 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 
-@app.route('/api')
+@app.route('/')
 def hello():
     return 'Hello, World!'
 
-@app.route('/api/extract-text', methods=['POST', 'OPTIONS'], strict_slashes=False)
+@app.route('/extract-text', methods=['POST', 'OPTIONS'], strict_slashes=False)
 def extract_text():
     print("Here")
     if 'file' not in request.files:
@@ -47,7 +47,7 @@ def extract_text():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/generate_csv', methods=['POST'])
+@app.route('/generate_csv', methods=['POST'])
 def generate_csv():
     data = request.json  # Assuming data is sent as JSON from the client
     if not data:
