@@ -10,10 +10,13 @@ load_dotenv()
 import csv
 
 app = Flask(__name__)
-# Enable CORS for all routes with support for credentials and preflight
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+# Enable CORS - if using credentials, origin cannot be '*'
+# We will allow all origins but without the '*' literal if possible, 
+# or just set it to reflect the request origin.
+CORS(app, supports_credentials=True)
 
 def extract_text_from_pdf(pdf_file):
+    print("Here")
     pdf_reader = PyPDF2.PdfReader(pdf_file)  # Updated to PdfReader
     text = ''
     for page_num in range(len(pdf_reader.pages)):
@@ -25,7 +28,7 @@ def extract_text_from_pdf(pdf_file):
 def hello():
     return 'Hello, World!'
 
-@app.route('/extract-text', methods=['POST', 'OPTIONS'])
+@app.route('/extract-text', methods=['POST', 'OPTIONS'], strict_slashes=False)
 def extract_text():
     print("Here")
     if 'file' not in request.files:
